@@ -9,7 +9,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         field = ('id','article_title','article_author','article_email')
 
 
-
+g
 
 
 # basic serializer
