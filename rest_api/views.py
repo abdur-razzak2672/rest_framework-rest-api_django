@@ -7,7 +7,32 @@ from rest_framework import status
 from .models import*
 from .serializers import*
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
+#class based api view
+
+class  ArticleAPIView(APIView):
+    def get(self ,request):
+        articles = Article.objects.all()
+        serializer = ArticleSerializer(articles, many =True)
+        return Response(serializer.data)
+
+
+    def post(self ,request):
+        serializer = ArticleSerializer(data = request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data , status =status.HTTP_201_CREATED)
+        return Response(serializer.errors , status =status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
+
+ 
 
 #functional view
 #@csrf_exempt
@@ -71,6 +96,6 @@ def article_detail(request, pk):
         
 
     elif request.method == 'DELETE':
-            serializer.delete()
-            return Response(serializer.errors , status =status.HTTP_400_NO_CONTENT)
-            #return JsonResponse(status = 204)
+            article.delete()
+            return Response(status = status.HTTP_204_NO_CONTENT)
+            #return JsonResponse(status =  204)
