@@ -99,3 +99,7 @@ def article_detail(request, pk):
             article.delete()
             return Response(status = status.HTTP_204_NO_CONTENT)
             #return JsonResponse(status =  204)
+    elif request.method == 'DELETE':
+        article.delete()
+        return Response(status = status.HTTP_204_NO_CONTENT)
+        #return JsonResponse(status =  204)
